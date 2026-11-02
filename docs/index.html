@@ -1,513 +1,533 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Axis Terrain Lab — Next-Gen GPU Procedural Terrain, Splatmap & Erosion Studio</title>
+  <title>Axis Terrain Lab — Next-Gen GPU Procedural Terrain, Splatmap & Erosion Suite</title>
   <meta name="description" content="Next-Gen GPU-Accelerated Heightmap, Splatmap, Hydraulic Erosion & Landscape Authoring Studio for Godot 4 & Unreal Engine 5. Built with Rust, Tauri v2, and Three.js.">
   <meta name="keywords" content="Terrain Generator, Hydraulic Erosion, Splatmaps, Heightmap, Godot Terrain3D, Unreal Engine 5 Landscape, Three.js, WebGL, Tauri v2, Rust, Axis Tools">
   <meta name="author" content="Mahdi Kareem">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Axis Terrain Lab">
-  <meta property="og:description" content="GPU-Accelerated Heightmap, Splatmap & Hydraulic Erosion Landscape Suite for Game Developers.">
+  <meta property="og:title" content="Axis Terrain Lab — Next-Gen GPU Terrain & Erosion Suite">
+  <meta property="og:description" content="Next-Gen GPU-Accelerated Heightmap, Splatmap & Hydraulic Erosion Landscape Suite for Game Developers. Built with Rust + Tauri v2 + Three.js.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://moopuu.github.io/Axis-Terrain-Lab/">
   <meta property="og:image" content="assets/logo.png">
 
-  <!-- Favicon using official Axis Terrain Lab logo -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#07090e] text-[#f0f6fc]">
+<body>
 
-  <!-- Top Navigation Bar -->
-  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur px-6 py-3.5 flex items-center justify-between border-b border-[#1b2333]">
-    <div class="flex items-center space-x-3">
-      <div class="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center border border-[#1b2333] shadow-[0_0_12px_rgba(0,210,255,0.2)]">
-        <img src="assets/logo.svg" alt="Axis Terrain Lab Logo" class="w-full h-full object-contain">
-      </div>
-      <div>
-        <div class="flex items-center space-x-2">
-          <span class="font-bold text-sm tracking-wide text-white">Axis Terrain Lab</span>
-          <span class="px-1.5 py-0.5 rounded text-[10px] font-mono bg-[#162032] text-[#00d2ff] border border-[#00d2ff]/30 font-semibold">v1.0.0</span>
+  <!-- Ambient Glow Effects -->
+  <div class="glow-sphere glow-1"></div>
+  <div class="glow-sphere glow-2"></div>
+  <div class="glow-sphere glow-3"></div>
+
+  <!-- Header Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-link">
+        <div class="brand-icon-wrapper">
+          <img src="assets/logo.svg" alt="Axis Terrain Lab Logo" class="brand-icon" width="26" height="26">
         </div>
-        <p class="text-[10px] text-[#536279]">Made By Mahdi Kareem &copy; 2026</p>
-      </div>
-    </div>
-
-    <!-- Navigation links -->
-    <div class="hidden md:flex items-center space-x-6 text-xs font-medium text-[#8b9bb4]">
-      <a href="#overview" class="hover:text-[#00d2ff] transition-colors">Overview</a>
-      <a href="#screenshots" class="hover:text-[#00d2ff] transition-colors">Screenshots</a>
-      <a href="#features" class="hover:text-[#00d2ff] transition-colors">Features</a>
-      <a href="#engines" class="hover:text-[#00d2ff] transition-colors">Engine Presets</a>
-      <a href="#comparison" class="hover:text-[#00d2ff] transition-colors">Comparison</a>
-      <a href="#downloads" class="hover:text-[#00d2ff] transition-colors">Downloads</a>
-      <a href="https://github.com/MooPuu/Axis-Terrain-Lab" target="_blank" class="hover:text-white transition-colors flex items-center space-x-1.5">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
-        <span>GitHub</span>
-      </a>
-    </div>
-
-    <!-- Right Download CTA -->
-    <div class="flex items-center space-x-3">
-      <a href="#downloads" class="px-3.5 py-1.5 rounded-md bg-[#00d2ff] hover:bg-[#2fe0ff] text-[#07090e] text-xs font-bold shadow-[0_0_15px_rgba(0,210,255,0.35)] transition-all flex items-center space-x-1.5">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
-        <span>Download v1.0.0</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <header id="overview" class="pt-32 pb-16 px-6 max-w-6xl mx-auto text-center relative">
-    <div class="flex justify-center mb-6">
-      <div class="w-24 h-24 rounded-2xl overflow-hidden p-2 bg-[#0e121a] border border-[#1e2636] shadow-[0_0_30px_rgba(0,210,255,0.2)]">
-        <img src="assets/logo.svg" alt="Axis Terrain Lab Icon" class="w-full h-full object-contain">
-      </div>
-    </div>
-
-    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#141a26] border border-[#27354d] text-[#00d2ff] text-xs font-mono mb-6">
-      <span class="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
-      <span>Axis Tools Ecosystem &bull; Desktop Geomorphology Studio</span>
-    </div>
-
-    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-      Procedural Terrains, GPU Erosion &amp; Splatmaps <br class="hidden md:inline">
-      <span class="text-gradient-cyan">Ready for Godot 4 &amp; Unreal Engine 5</span>
-    </h1>
-
-    <p class="max-w-2xl mx-auto text-sm md:text-base text-[#8b9bb4] mb-8 leading-relaxed">
-      A lightweight, standalone desktop suite for authoring 16-bit/32-bit heightmaps, hydraulic &amp; thermal erosion simulations, and multi-channel splatmaps with zero bloat and 1-click production export.
-    </p>
-
-    <!-- CTAs -->
-    <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
-      <a href="#downloads" class="btn-primary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-        </svg>
-        <span>Download for Windows (v1.0.0)</span>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <span class="brand-name">Axis Terrain Lab</span>
+            <span class="brand-tag">v1.0.0</span>
+          </div>
+          <span class="brand-author">Made By Mahdi Kareem &copy; 2026</span>
+        </div>
       </a>
 
-      <a href="#screenshots" class="btn-secondary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span>View Screenshots</span>
-      </a>
-    </div>
+      <nav class="nav-menu">
+        <a href="#overview">Overview</a>
+        <a href="#screenshots">Screenshots</a>
+        <a href="#features">Features</a>
+        <a href="#engines">Engine Bridges</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#downloads">Downloads</a>
+      </nav>
 
-    <!-- Quick specs badges -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto font-mono text-xs">
-      <div class="p-3 rounded-lg bg-[#0e121a] border border-[#1b2333]">
-        <div class="text-[#536279] text-[10px] uppercase">Binary Size</div>
-        <div class="text-white font-semibold text-sm">&lt; 9.2 MB</div>
-      </div>
-      <div class="p-3 rounded-lg bg-[#0e121a] border border-[#1b2333]">
-        <div class="text-[#536279] text-[10px] uppercase">Elevation Buffer</div>
-        <div class="text-[#00d2ff] font-semibold text-sm">Float32 / 16-bit</div>
-      </div>
-      <div class="p-3 rounded-lg bg-[#0e121a] border border-[#1b2333]">
-        <div class="text-[#536279] text-[10px] uppercase">Simulation Speed</div>
-        <div class="text-[#10b981] font-semibold text-sm">Real-Time GPU</div>
-      </div>
-      <div class="p-3 rounded-lg bg-[#0e121a] border border-[#1b2333]">
-        <div class="text-[#536279] text-[10px] uppercase">License</div>
-        <div class="text-white font-semibold text-sm">100% MIT Free</div>
+      <div class="nav-actions">
+        <a href="https://github.com/MooPuu/Axis-Terrain-Lab" target="_blank" rel="noopener" class="btn btn-secondary btn-nav-icon" title="View Source on GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="#downloads" class="btn btn-primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+          <span>Download v1.0.0</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- Interactive Screenshots Showcase Section -->
-  <section id="screenshots" class="max-w-6xl mx-auto px-6 mb-24 text-left">
-    <div class="text-center max-w-2xl mx-auto mb-14">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-[#00d2ff] mb-2">App Interface</h2>
-      <h3 class="text-3xl font-bold text-white">Application Screenshots</h3>
-      <p class="text-xs md:text-sm text-[#8b9bb4] mt-2">Take a visual tour through Axis Terrain Lab's workspace, erosion passes, and engine exporters.</p>
-    </div>
+  <!-- Hero Section -->
+  <section class="hero-section" id="overview">
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Version 1.0.0 Available Now</span>
+        <span class="badge-pill">Native Rust + Tauri v2</span>
+      </div>
 
-    <!-- Main Showcase Screenshot Card -->
-    <div class="mb-12 p-1.5 rounded-2xl bg-gradient-to-b from-[#1b2333] to-[#0e121a] shadow-2xl">
-      <div class="rounded-xl overflow-hidden bg-[#07090e] border border-[#1b2333]">
-        <div class="p-3 bg-[#0e121a] border-b border-[#1b2333] flex items-center justify-between text-xs font-mono text-[#8b9bb4]">
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 rounded-full bg-[#ef4444]/80 inline-block"></span>
-            <span class="w-3 h-3 rounded-full bg-[#f59e0b]/80 inline-block"></span>
-            <span class="w-3 h-3 rounded-full bg-[#10b981]/80 inline-block"></span>
-            <span class="ml-2 text-white font-semibold">Axis Terrain Lab — Main Viewport &amp; Hydraulic Simulation</span>
+      <h1 class="hero-title">
+        The Next-Gen GPU <br>
+        <span class="text-gradient">Procedural Terrain &amp; Erosion</span> Suite
+      </h1>
+
+      <p class="hero-subtitle">
+        Author 16-bit/32-bit heightmaps, simulate physical shallow-water hydraulic and thermal erosion in real-time, generate 4-channel biome splatmaps, and export production-ready packages for Godot Terrain3D and Unreal Engine 5. Standalone under 10 MB.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="#downloads" class="btn btn-primary btn-lg">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            <span>Download for Windows</span>
           </div>
-          <span class="text-[#00d2ff]">1600 &times; 1000 &bull; 60 FPS</span>
+          <span class="btn-subtext">v1.0.0 • Portable EXE • NSIS • MSI</span>
+        </a>
+        <a href="#screenshots" class="btn btn-secondary btn-lg">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <span>Explore Features &amp; Showcase</span>
+          </div>
+          <span class="btn-subtext">Real-Time WebGL2 3D Viewport</span>
+        </a>
+      </div>
+
+      <!-- Hero App Preview Mockup -->
+      <div class="hero-preview-frame">
+        <div class="window-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="window-title">Axis Terrain Lab — v1.0.0</div>
+          <div class="window-badge">GPU Accelerated WebGL2 &amp; Rust</div>
         </div>
-        <img id="mainScreenshot" src="screenshots/overview.png" alt="Axis Terrain Lab Main Interface" class="w-full h-auto object-cover border-b border-[#1b2333]">
-        <div class="p-4 bg-[#0e121a] flex flex-col sm:flex-row items-center justify-between text-xs gap-3">
-          <p id="screenshotCaption" class="text-[#8b9bb4]">
-            <strong>Main Viewport:</strong> Real-time 3D terrain rendering with shallow-water virtual pipes erosion simulation and raycast brush sculpting tools.
+        <div class="window-body">
+          <img src="screenshots/overview.png" alt="Axis Terrain Lab 3D Viewport" class="hero-mockup-img" id="heroImage">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Metrics Ribbon -->
+  <section class="stats-ribbon">
+    <div class="container stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">&lt; 10 MB</div>
+        <div class="stat-label">Lightweight Standalone Binary</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">16-Bit HDR</div>
+        <div class="stat-label">Sub-Millimeter Elevation Precision</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">GPU Hydraulic</div>
+        <div class="stat-label">Real-Time Virtual Pipe Shallow Water</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">Godot 4 &amp; UE5</div>
+        <div class="stat-label">Production Ready Engine Bridges</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Screenshot Showcase -->
+  <section class="section screenshots-section" id="screenshots">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interactive Preview</span>
+        <h2 class="section-title">Designed for Modern Environment Artists</h2>
+        <p class="section-subtitle">A clean, dark workspace featuring continuous GPU erosion, multi-channel biome mask baking, and 1-click game engine export pipelines.</p>
+      </div>
+
+      <!-- Showcase Tabs -->
+      <div class="showcase-tabs">
+        <button class="showcase-tab active" data-img="screenshots/overview.png" data-desc="Real-time Three.js continuous terrain mesh displacement with dynamic sun azimuth, soft shadows, and live hydraulic erosion pass.">
+          <span>3D Viewport</span>
+        </button>
+        <button class="showcase-tab" data-img="screenshots/splatmaps.png" data-desc="4-channel RGBA splatmap generator with real-time Slope angle, Laplacian Curvature, Altitude bands, and Topographic Wetness Index.">
+          <span>Biome Splatmaps</span>
+        </button>
+        <button class="showcase-tab" data-img="screenshots/export-hub.png" data-desc="Production-ready export presets: Godot Terrain3D (RAW16 + packed Control Map) and Unreal Engine 5 Landscape.">
+          <span>Game Engine Hub</span>
+        </button>
+        <button class="showcase-tab" data-img="screenshots/wireframe.png" data-desc="Dynamic wireframe and vertex inspection mode for topology density, terracing, and contour analysis.">
+          <span>Topology &amp; Wireframe</span>
+        </button>
+      </div>
+
+      <!-- Showcase Screen Display -->
+      <div class="showcase-display">
+        <div class="display-container">
+          <img src="screenshots/overview.png" alt="Showcase Screen" id="showcaseImage" class="showcase-img">
+          <div class="showcase-overlay">
+            <span id="showcaseCaption">Real-time Three.js continuous terrain mesh displacement with dynamic sun azimuth, soft shadows, and live hydraulic erosion pass.</span>
+            <button class="btn btn-sm btn-secondary" id="btnZoom">Click to Enlarge</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features Grid -->
+  <section class="section features-section" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Powerful Capabilities</span>
+        <h2 class="section-title">Everything for Geomorphology &amp; Landscapes</h2>
+        <p class="section-subtitle">No multi-gigabyte bloat. No subscription paywalls. Just instant native GPU geomorphology on your desktop.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </div>
+          <h3>Physical GPU Hydraulic Erosion</h3>
+          <p>Real-time shallow water hydrodynamic simulation with virtual pipe flux conservation, bedrock dissolution, sediment transport capacity, deposition, and evaporation.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 20h18L14 4l-4 7-3-4-4 13z"/>
+            </svg>
+          </div>
+          <h3>Thermal Talus &amp; Scree Slip</h3>
+          <p>Angle of Repose material slip dynamics (25&deg; - 48&deg;) modeling realistic physical rock shattering, mechanical cliff weathering, and alluvial scree fans at valley bases.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 3v12M18 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 9a9 9 0 0 1-9 9"/>
+            </svg>
+          </div>
+          <h3>Dendritic Fluvial River Incision</h3>
+          <p>Stream power drainage routing carving natural dendritic riverbeds and canyon networks across macro-terrains, creating authentic hydrological connectivity.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
+          </div>
+          <h3>4-Channel RGBA Splatmap Generator</h3>
+          <p>Real-time normal dot-product slope angles, Laplacian curvature ridges, altitude bands, and Topographic Wetness Index (TWI) packed into a single RGBA texture.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"/>
+            </svg>
+          </div>
+          <h3>Interactive 3D Sculpting &amp; Viewport</h3>
+          <p>Continuous mesh raycast brushes: Raise, Lower, Smooth, Flatten plateau, and Hydraulic Stamp. 5 viewport modes including PBR multi-material and wireframe.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h3>First-Class Game Engine Bridges</h3>
+          <p>Seamless 1-click export pipelines for Godot 4.x Terrain3D and Unreal Engine 5 Landscape components with calibrated altitude scaling and weightmap layers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Engine Bridges Deep-Dive -->
+  <section class="section" id="engines">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Game Engine Pipelines</span>
+        <h2 class="section-title">Ready for Your Next Production</h2>
+        <p class="section-subtitle">No conversion scripts or manual channel swizzling. Direct exports optimized for Godot 4 and Unreal Engine 5.</p>
+      </div>
+
+      <div class="engine-grid">
+        <!-- Godot Terrain3D Card -->
+        <div class="engine-card">
+          <div class="engine-header">
+            <div class="engine-logo">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5zm3.5-5.5a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5zm-7 0A1.5 1.5 0 1 1 8 9.5 1.5 1.5 0 0 1 9.5 11z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="engine-title">Godot 4.x &bull; Terrain3D Preset</div>
+              <div class="engine-subtitle">Native r16 + Packed Control Map (.png)</div>
+            </div>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 16px;">
+            Fully complies with the Terrain3D storage specification, generating high-precision heightmaps and 32-slot control maps.
           </p>
-          <div class="flex items-center space-x-2 shrink-0">
-            <button onclick="setScreenshot('screenshots/overview.png', 'Main Viewport: Real-time 3D terrain rendering with shallow-water virtual pipes erosion simulation and raycast brush sculpting tools.')" class="px-2.5 py-1 rounded bg-[#1b2333] hover:bg-[#27354d] text-white transition-colors cursor-pointer">Viewport</button>
-            <button onclick="setScreenshot('screenshots/splatmaps.png', 'Weightmaps & Splatmaps: Slope, Laplacian curvature, altitude bands, and packed 4-channel RGBA weights for in-engine shaders.')" class="px-2.5 py-1 rounded bg-[#1b2333] hover:bg-[#27354d] text-white transition-colors cursor-pointer">Splatmaps</button>
-            <button onclick="setScreenshot('screenshots/export-hub.png', 'Engine Export Hub: 1-click production packages formatted for Godot Terrain3D (.r16 + Control Map) and Unreal Engine 5 (.r16 + Layer PNGs).')" class="px-2.5 py-1 rounded bg-[#1b2333] hover:bg-[#27354d] text-white transition-colors cursor-pointer">Export Hub</button>
-            <button onclick="setScreenshot('screenshots/wireframe.png', 'Topology Wireframe: Real-time mesh inspection displaying heightfield vertex distribution and LOD boundaries.')" class="px-2.5 py-1 rounded bg-[#1b2333] hover:bg-[#27354d] text-white transition-colors cursor-pointer">Wireframe</button>
+          <ul class="engine-specs">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Little-Endian RAW16 (.r16):</strong> Unsigned 16-bit integer elevation map for zero staircase banding artifacts.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>4-Channel Control Map:</strong> Packs base texture slot indices (0–31), overlay slot indices, blend weights, roughness, and wetness flags into a single RGBA PNG.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Preset Manifest:</strong> Bundles ready-to-import <code>terrain3d_config.json</code> with exact vertex spacing and height bounds.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Unreal Engine 5 Card -->
+        <div class="engine-card">
+          <div class="engine-header">
+            <div class="engine-logo">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="engine-title">Unreal Engine 5 Landscape</div>
+              <div class="engine-subtitle">Epic Grid Sizes (1009 / 2017) + 4x Weightmaps</div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Screenshot Gallery Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div onclick="setScreenshot('screenshots/overview.png', 'Main Viewport: Real-time 3D terrain rendering with shallow-water virtual pipes erosion simulation and raycast brush sculpting tools.')" class="card-hover p-2 cursor-pointer group">
-        <div class="rounded-lg overflow-hidden border border-[#1b2333] aspect-video mb-2 bg-[#000]">
-          <img src="screenshots/overview.png" alt="Overview" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="px-1">
-          <div class="font-bold text-xs text-white group-hover:text-[#00d2ff] transition-colors">3D Viewport &amp; Erosion</div>
-          <div class="text-[10px] text-[#536279]">GPU shallow water dynamics</div>
-        </div>
-      </div>
-
-      <div onclick="setScreenshot('screenshots/splatmaps.png', 'Weightmaps & Splatmaps: Slope, Laplacian curvature, altitude bands, and packed 4-channel RGBA weights for in-engine shaders.')" class="card-hover p-2 cursor-pointer group">
-        <div class="rounded-lg overflow-hidden border border-[#1b2333] aspect-video mb-2 bg-[#000]">
-          <img src="screenshots/splatmaps.png" alt="Splatmaps" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="px-1">
-          <div class="font-bold text-xs text-white group-hover:text-[#00d2ff] transition-colors">Weightmaps &amp; Splatmaps</div>
-          <div class="text-[10px] text-[#536279]">4-Channel RGBA packed masks</div>
-        </div>
-      </div>
-
-      <div onclick="setScreenshot('screenshots/export-hub.png', 'Engine Export Hub: 1-click production packages formatted for Godot Terrain3D (.r16 + Control Map) and Unreal Engine 5 (.r16 + Layer PNGs).')" class="card-hover p-2 cursor-pointer group">
-        <div class="rounded-lg overflow-hidden border border-[#1b2333] aspect-video mb-2 bg-[#000]">
-          <img src="screenshots/export-hub.png" alt="Export Hub" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="px-1">
-          <div class="font-bold text-xs text-white group-hover:text-[#00d2ff] transition-colors">Engine Export Hub</div>
-          <div class="text-[10px] text-[#536279]">Godot Terrain3D &bull; UE5 Landscape</div>
-        </div>
-      </div>
-
-      <div onclick="setScreenshot('screenshots/wireframe.png', 'Topology Wireframe: Real-time mesh inspection displaying heightfield vertex distribution and LOD boundaries.')" class="card-hover p-2 cursor-pointer group">
-        <div class="rounded-lg overflow-hidden border border-[#1b2333] aspect-video mb-2 bg-[#000]">
-          <img src="screenshots/wireframe.png" alt="Wireframe" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="px-1">
-          <div class="font-bold text-xs text-white group-hover:text-[#00d2ff] transition-colors">Topology &amp; Wireframe</div>
-          <div class="text-[10px] text-[#536279]">Quad grid resolution analysis</div>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 16px;">
+            Conforms strictly to Epic Games Landscape technical guidelines to prevent visual seams across World Partition streaming proxies.
+          </p>
+          <ul class="engine-specs">
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Clamped Component Grids:</strong> Automatically formats export to recommended resolutions: 1009&times;1009, 2017&times;2017, and 4033&times;4033.</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Discrete Layer Weightmaps:</strong> 4 individual 8-bit grayscale PNGs (<code>Layer_Rock</code>, <code>Layer_Grass</code>, <code>Layer_Dirt</code>, <code>Layer_Snow</code>).</span>
+            </li>
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span><strong>Z-Scale Calculation:</strong> Exports exact Z-scale calibration factor (<code>Z = HeightRange &times; 100 / 512</code>) for 1:1 UE5 landscape actor match.</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Core Features Section -->
-  <section id="features" class="max-w-6xl mx-auto px-6 mb-24 text-left">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-[#00d2ff] mb-2">Capabilities</h2>
-      <h3 class="text-3xl font-bold text-white">Engineered for Technical Environment Artists</h3>
-      <p class="text-xs md:text-sm text-[#8b9bb4] mt-2">Everything you need to author geologically plausible terrains without the sluggishness of legacy monolithic software.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- Feature 1 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#00d2ff]/10 text-[#00d2ff] flex items-center justify-center mb-4 border border-[#00d2ff]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2.5C12 2.5 5.5 10.5 5.5 15.5C5.5 19.0899 8.41015 22 12 22C15.5899 22 18.5 19.0899 18.5 15.5C18.5 10.5 12 2.5 12 2.5Z"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Hydraulic Shallow Water Erosion</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Virtual Pipes hydrodynamic simulation. Models rainfall precipitation, velocity vectors, bedrock dissolution ($K_s$), sediment transport capacity ($K_c$), and deposition.
-        </p>
+  <!-- Comparison Matrix -->
+  <section class="section comparison-section" id="comparison">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Performance Benchmark</span>
+        <h2 class="section-title">How Axis Terrain Lab Compares</h2>
+        <p class="section-subtitle">A modern, native Rust + WebGL2 architecture engineered for instant desktop workflow vs gigabyte legacy suites.</p>
       </div>
 
-      <!-- Feature 2 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#f59e0b]/10 text-[#f59e0b] flex items-center justify-center mb-4 border border-[#f59e0b]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2C12 2 15.5 5 15.5 9.5C15.5 10.5 15 11.5 14.5 12C15.5 11 17 9.5 17 7.5C19.5 9.5 20.5 12.5 20.5 15C20.5 19.1421 16.6944 22 12 22C7.30558 22 3.5 19.1421 3.5 15C3.5 11 6.5 6 12 2Z"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Thermal Scree &amp; Talus Slip</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Simulates critical Angle of Repose ($25^\circ - 48^\circ$). Excess cliff rock shears away and rolls down gradients, creating geologically accurate scree deposits at valley bases.
-        </p>
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="highlight-col">Axis Terrain Lab (v1.0)</th>
+              <th>QuadSpinner Gaea 2</th>
+              <th>World Creator 2024</th>
+              <th>World Machine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Binary Size</strong></td>
+              <td class="highlight-col"><strong>~9.1 MB</strong></td>
+              <td>~1.8 GB</td>
+              <td>~2.4 GB</td>
+              <td>~450 MB</td>
+            </tr>
+            <tr>
+              <td><strong>Startup Time</strong></td>
+              <td class="highlight-col"><strong>Instantaneous (&lt; 0.4s)</strong></td>
+              <td>6s – 15s</td>
+              <td>8s – 20s</td>
+              <td>5s – 12s</td>
+            </tr>
+            <tr>
+              <td><strong>Idle RAM Footprint</strong></td>
+              <td class="highlight-col"><strong>~65 MB</strong></td>
+              <td>1.2 GB – 4 GB</td>
+              <td>2 GB – 6 GB</td>
+              <td>800 MB – 2 GB</td>
+            </tr>
+            <tr>
+              <td><strong>Real-Time GPU Hydraulic</strong></td>
+              <td class="highlight-col"><strong>Yes (Continuous 60 FPS)</strong></td>
+              <td>Node baking pass</td>
+              <td>GPU preview</td>
+              <td>CPU slice baking</td>
+            </tr>
+            <tr>
+              <td><strong>Godot Terrain3D Bridge</strong></td>
+              <td class="highlight-col"><strong>Native 1-Click (r16 + Control Map)</strong></td>
+              <td>Manual export</td>
+              <td>Plugin required</td>
+              <td>Manual setup</td>
+            </tr>
+            <tr>
+              <td><strong>UE5 Component Grid Clamping</strong></td>
+              <td class="highlight-col"><strong>Yes (1009 / 2017)</strong></td>
+              <td>Manual clamp</td>
+              <td>Bridge plugin</td>
+              <td>Manual crop</td>
+            </tr>
+            <tr>
+              <td><strong>License &amp; Pricing</strong></td>
+              <td class="highlight-col"><strong>100% Free &amp; Open Source (MIT)</strong></td>
+              <td>Commercial ($99 – $299)</td>
+              <td>Commercial ($289 – $689)</td>
+              <td>Commercial ($119 – $299)</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <!-- Feature 3 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mb-4 border border-[#10b981]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Fluvial Dendritic Incision</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Wilbur-inspired stream power drainage routing. Automatically carves intricate, meandering stream valleys and canyon gorges across macro-scale highland formations.
-        </p>
-      </div>
-
-      <!-- Feature 4 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#8b5cf6]/10 text-[#8b5cf6] flex items-center justify-center mb-4 border border-[#8b5cf6]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z"/><path d="M2 12L12 17L22 12M2 17L12 22L22 17"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Packed Splatmaps &amp; Masks</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Extract mathematical surface derivative masks: normal slope angles, Laplacian curvature $\nabla^2 H$ (ridge wear vs crevices), altitude bands, and topographic wetness (TWI).
-        </p>
-      </div>
-
-      <!-- Feature 5 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#00d2ff]/10 text-[#00d2ff] flex items-center justify-center mb-4 border border-[#00d2ff]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14.5 3.5L20.5 9.5L16.5 13.5L10.5 7.5L14.5 3.5Z"/><path d="M10.5 7.5L4 14C3 15 2 17.5 2 19.5C2 21 3 22 4.5 22C6.5 22 9 21 10 20L16.5 13.5"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Interactive 3D Raycast Brushes</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Direct terrain surface sculpting with continuous 3D reticles: Raise, Lower, Smooth, Flatten plateau, and local Hydraulic Erosion stamps with smooth cosine falloffs.
-        </p>
-      </div>
-
-      <!-- Feature 6 -->
-      <div class="card-hover p-6">
-        <div class="w-10 h-10 rounded-lg bg-[#10b981]/10 text-[#10b981] flex items-center justify-center mb-4 border border-[#10b981]/20">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 14V18C4 19.6569 5.34315 21 7 21H17C18.6569 21 20 19.6569 20 18V14"/><path d="M12 3V15M12 3L7.5 7.5M12 3L16.5 7.5"/>
-          </svg>
-        </div>
-        <h4 class="text-base font-semibold text-white mb-2">Native Engine Presets</h4>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          1-click production packages for <strong>Godot 4 Terrain3D</strong> (packed Control Map + `.r16`) and <strong>Unreal Engine 5</strong> (component-formula RAW, 4x layer PNGs, and World Partition tiling metadata).
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Engine Integration Section -->
-  <section id="engines" class="max-w-6xl mx-auto px-6 mb-24 text-left">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-[#00d2ff] mb-2">Pipelines</h2>
-      <h3 class="text-3xl font-bold text-white">First-Class Game Engine Bridges</h3>
-      <p class="text-xs md:text-sm text-[#8b9bb4] mt-2">Zero format guesswork. Clean 16-bit precision with native engine configs.</p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Godot Card -->
-      <div class="p-6 rounded-xl bg-[#0e121a] border border-[#1b2333] space-y-4">
-        <div class="flex items-center space-x-3 text-[#00d2ff]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 4C6.5 4 4 6 4 11C4 16 6 19 12 19C18 19 20 16 20 11C20 6 17.5 4 12 4Z"/>
-            <circle cx="9" cy="11" r="1.5"/><circle cx="15" cy="11" r="1.5"/>
-            <path d="M10 15H14M7 3L8.5 5M17 3L15.5 5M2 11H4M20 11H22M6 19L5 21M18 19L19 21"/>
-          </svg>
-          <h4 class="text-lg font-bold text-white">Godot 4.x / Terrain3D Pipeline</h4>
-        </div>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Terrain3D avoids traditional slow RGBA splatmaps in favor of an optimized 4-channel <strong>Control Map</strong>. Axis Terrain Lab packs primary/secondary texture indices (0-31), weight transitions, roughness, and wetness flags automatically.
-        </p>
-        <ul class="text-xs text-[#e6edf3] space-y-1.5 font-mono">
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>16-bit Raw Little-Endian (.r16)</span></li>
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>Proprietary packed Control Map (.png)</span></li>
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>Terrain3D metadata &amp; storage JSON</span></li>
-        </ul>
-      </div>
-
-      <!-- Unreal Engine Card -->
-      <div class="p-6 rounded-xl bg-[#0e121a] border border-[#1b2333] space-y-4">
-        <div class="flex items-center space-x-3 text-[#8b5cf6]">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><path d="M8 8V12.5C8 14.5 9.5 16 12 16C14.5 16 16 14.5 16 12.5V8M6 8H10M14 8H18"/>
-          </svg>
-          <h4 class="text-lg font-bold text-white">Unreal Engine 5 Landscape &amp; World Partition</h4>
-        </div>
-        <p class="text-xs text-[#8b9bb4] leading-relaxed">
-          Unreal landscapes require strict mathematical component vertex formulas $(C \times Q) + 1$. Axis Terrain Lab clamps directly to Epic's recommended resolutions to avoid stitching tears.
-        </p>
-        <ul class="text-xs text-[#e6edf3] space-y-1.5 font-mono">
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>1009&sup2;, 2017&sup2;, 4033&sup2; component presets</span></li>
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>4x Individual 8-bit layer PNGs (Rock, Grass, Dirt, Snow)</span></li>
-          <li class="flex items-center space-x-2"><span class="text-[#10b981]">&check;</span><span>World Partition tile chunk config with seam overlap</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Comparison Matrix Section -->
-  <section id="comparison" class="max-w-6xl mx-auto px-6 mb-24 text-left">
-    <div class="text-center max-w-2xl mx-auto mb-16">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-[#00d2ff] mb-2">Benchmark</h2>
-      <h3 class="text-3xl font-bold text-white">How Axis Terrain Lab Compares</h3>
-      <p class="text-xs md:text-sm text-[#8b9bb4] mt-2">Zero bloat, instant launch, lightweight binary, and open-source freedom.</p>
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Feature / Capability</th>
-            <th class="text-[#00d2ff] font-bold">Axis Terrain Lab</th>
-            <th>Gaea 2</th>
-            <th>World Creator 2024</th>
-            <th>World Machine</th>
-          </tr>
-        </thead>
-        <tbody class="text-xs">
-          <tr>
-            <td class="font-semibold text-white">Binary Install Size</td>
-            <td class="text-[#10b981] font-semibold">&lt; 9.2 MB</td>
-            <td>&gt; 1.8 GB</td>
-            <td>&gt; 2.4 GB</td>
-            <td>&gt; 600 MB</td>
-          </tr>
-          <tr>
-            <td class="font-semibold text-white">App Startup Time</td>
-            <td class="text-[#10b981] font-semibold">&lt; 0.5s Instant</td>
-            <td>10 - 25s</td>
-            <td>8 - 15s</td>
-            <td>6 - 12s</td>
-          </tr>
-          <tr>
-            <td class="font-semibold text-white">GPU Shallow Water Erosion</td>
-            <td class="text-[#10b981] font-semibold">&check; Real-time Virtual Pipes</td>
-            <td>&check; Graph node</td>
-            <td>&check; Layer filter</td>
-            <td>&cross; CPU Bound</td>
-          </tr>
-          <tr>
-            <td class="font-semibold text-white">Godot Terrain3D Control Map</td>
-            <td class="text-[#10b981] font-semibold">&check; 1-Click Native</td>
-            <td>Requires custom script</td>
-            <td>Requires custom script</td>
-            <td>&cross; None</td>
-          </tr>
-          <tr>
-            <td class="font-semibold text-white">UE5 Component Sizing</td>
-            <td class="text-[#10b981] font-semibold">&check; Exact (1009 / 2017)</td>
-            <td>&check; Manual clamp</td>
-            <td>&check; Bridge</td>
-            <td>&check; Manual crop</td>
-          </tr>
-          <tr>
-            <td class="font-semibold text-white">License &amp; Pricing</td>
-            <td class="text-[#10b981] font-semibold">100% Free MIT</td>
-            <td>Commercial ($99 - $299)</td>
-            <td>Commercial ($289 - $689)</td>
-            <td>Commercial ($119 - $299)</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
   <!-- Downloads Section -->
-  <section id="downloads" class="max-w-5xl mx-auto px-6 mb-24 text-left">
-    <div class="text-center max-w-2xl mx-auto mb-14">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-[#00d2ff] mb-2">Production Releases</h2>
-      <h3 class="text-3xl font-bold text-white">Download Axis Terrain Lab v1.0.0</h3>
-      <p class="text-xs md:text-sm text-[#8b9bb4] mt-2">Available as standalone zero-install portable executable or clean installers for Windows.</p>
-    </div>
+  <section class="section downloads-section" id="downloads">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Production Releases</span>
+        <h2 class="section-title">Download Axis Terrain Lab v1.0.0</h2>
+        <p class="section-subtitle">Select your preferred Windows distribution. Zero subscriptions, zero telemetry, 100% offline standalone execution.</p>
+      </div>
 
-    <div class="space-y-4">
-      <!-- Portable Exe -->
-      <div class="card-hover p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 border-l-4 border-l-[#00d2ff]">
-        <div class="space-y-1">
-          <div class="flex items-center space-x-2">
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#00d2ff]/15 text-[#00d2ff] font-semibold">RECOMMENDED</span>
-            <h4 class="text-base font-bold text-white">Windows Standalone Portable Executable</h4>
+      <div class="downloads-grid">
+        <!-- Standalone Portable EXE -->
+        <div class="download-card featured">
+          <div class="card-badge">Most Popular</div>
+          <div class="download-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <line x1="3" y1="9" x2="21" y2="9"/>
+              <line x1="9" y1="21" x2="9" y2="9"/>
+            </svg>
           </div>
-          <p class="text-xs text-[#8b9bb4]">Zero installation required. Extract or run directly from desktop, USB drive, or network share.</p>
-          <div class="text-[11px] font-mono text-[#536279]">SHA256: <code>64085396EE9BFCE1BDC825730E80123C28D42D110C77F424B55A3DC78B3DA86F</code></div>
+          <h3>Standalone Portable</h3>
+          <p class="download-desc">Zero installation required. Single self-contained <code>.exe</code> with all assets embedded. Run from USB drive or desktop.</p>
+          <div class="download-meta">
+            <div><span class="size-tag">Size:</span> ~9.12 MB &bull; Windows 10 / 11 (x64)</div>
+            <div>SHA256: <code>64085396EE9BFCE1BDC825730E80123C28D42D110C77F424B55A3DC78B3DA86F</code></div>
+          </div>
+          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_Portable.exe" class="btn btn-primary btn-block">
+            Download Portable EXE
+          </a>
         </div>
-        <div class="flex items-center space-x-3 shrink-0">
-          <span class="text-xs font-mono text-[#8b9bb4]">9.12 MB</span>
-          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_Portable.exe" class="btn-primary py-2.5 px-4 text-xs">
-            Download .exe
+
+        <!-- Setup NSIS Installer -->
+        <div class="download-card">
+          <div class="download-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3>Windows Setup (NSIS)</h3>
+          <p class="download-desc">Standard Windows setup wizard with Start Menu shortcut, desktop icon, and a clean Windows uninstaller.</p>
+          <div class="download-meta">
+            <div><span class="size-tag">Size:</span> ~2.07 MB &bull; Windows 10 / 11 (x64)</div>
+            <div>SHA256: <code>BFE7DA4E12C6D0FEFF6ACE97BDDB370DDF7A81613AD6F554A4FEECE6FFA752E2</code></div>
+          </div>
+          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe" class="btn btn-secondary btn-block">
+            Download Setup Installer
+          </a>
+        </div>
+
+        <!-- Enterprise MSI Package -->
+        <div class="download-card">
+          <div class="download-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>Enterprise MSI Package</h3>
+          <p class="download-desc">WiX Windows Installer (.msi) package designed for system administrators, group policies, and silent deployments.</p>
+          <div class="download-meta">
+            <div><span class="size-tag">Size:</span> ~3.00 MB &bull; Windows 10 / 11 (x64)</div>
+            <div>SHA256: <code>0161AA3FE34AEC21E40C118E28B09332433DAA0297E9CBB978CFFEC0704E626F</code></div>
+          </div>
+          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0.msi" class="btn btn-secondary btn-block">
+            Download MSI Package
           </a>
         </div>
       </div>
 
-      <!-- NSIS Setup -->
-      <div class="card-hover p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 border-l-4 border-l-[#10b981]">
-        <div class="space-y-1">
-          <h4 class="text-base font-bold text-white">Windows Setup Installer (NSIS)</h4>
-          <p class="text-xs text-[#8b9bb4]">Standard wizard with Start Menu shortcut, desktop icon, and clean uninstaller.</p>
-          <div class="text-[11px] font-mono text-[#536279]">SHA256: <code>BFE7DA4E12C6D0FEFF6ACE97BDDB370DDF7A81613AD6F554A4FEECE6FFA752E2</code></div>
-        </div>
-        <div class="flex items-center space-x-3 shrink-0">
-          <span class="text-xs font-mono text-[#8b9bb4]">2.07 MB</span>
-          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe" class="btn-secondary py-2.5 px-4 text-xs">
-            Download Setup .exe
-          </a>
-        </div>
-      </div>
-
-      <!-- MSI Installer -->
-      <div class="card-hover p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 border-l-4 border-l-[#8b5cf6]">
-        <div class="space-y-1">
-          <h4 class="text-base font-bold text-white">Enterprise Windows Installer (MSI)</h4>
-          <p class="text-xs text-[#8b9bb4]">Standard WiX Windows Installer package for managed deployments and silent installs.</p>
-          <div class="text-[11px] font-mono text-[#536279]">SHA256: <code>0161AA3FE34AEC21E40C118E28B09332433DAA0297E9CBB978CFFEC0704E626F</code></div>
-        </div>
-        <div class="flex items-center space-x-3 shrink-0">
-          <span class="text-xs font-mono text-[#8b9bb4]">3.00 MB</span>
-          <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0.msi" class="btn-secondary py-2.5 px-4 text-xs">
-            Download .msi
-          </a>
-        </div>
+      <div class="system-reqs">
+        <p><strong>System Requirements:</strong> 64-bit Windows 10 or Windows 11 with Microsoft Edge WebView2 runtime (pre-installed on modern Windows 10 &amp; 11).</p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-[#1b2333] py-12 px-6 bg-[#040609] text-xs text-[#536279]">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center border border-[#1b2333]">
-          <img src="assets/logo.svg" alt="Axis Terrain Lab Logo" class="w-full h-full object-contain">
-        </div>
-        <div class="space-y-0.5 text-left">
-          <div class="font-bold text-white text-sm">Axis Terrain Lab</div>
-          <p>Made By Mahdi Kareem &copy; 2026. Released under the MIT License.</p>
-          <p class="text-[11px]">Part of the <a href="https://github.com/MooPuu" class="text-[#00d2ff] hover:underline">Axis Tools</a> Open Source Game Development Stack.</p>
-        </div>
-      </div>
+  <!-- Image Lightbox Modal -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <img src="" alt="Enlarged screenshot" id="lightboxImg">
+      <button class="lightbox-close" id="lightboxClose" title="Close Lightbox">&times;</button>
+    </div>
+  </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 text-[#8b9bb4]">
-        <a href="https://github.com/MooPuu/Axis-Texture-Lab" class="hover:text-white transition-colors">Axis Texture Lab</a>
-        <a href="https://github.com/MooPuu/Axis-Sfx-Lab" class="hover:text-white transition-colors">Axis SFX Lab</a>
-        <a href="https://github.com/MooPuu/Axis-Terrain-Lab/issues" class="hover:text-white transition-colors">Issues</a>
-        <a href="https://github.com/MooPuu/Axis-Terrain-Lab" class="hover:text-white transition-colors">GitHub Repository</a>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img src="assets/Axis%20Tools%20Dark.png" alt="Axis Tools" class="footer-brand-logo">
+          <span class="footer-app-name">Axis Terrain Lab</span>
+        </div>
+        <p class="footer-tagline">The Open Source Game-Dev Stack &bull; Made by Mahdi Kareem &copy; 2026</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/MooPuu/Axis-Texture-Lab" target="_blank" rel="noopener">Axis Texture Lab</a>
+        <a href="https://github.com/MooPuu/Axis-Sfx-Lab" target="_blank" rel="noopener">Axis SFX Lab</a>
+        <a href="https://github.com/MooPuu/Axis-Terrain-Lab" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/tag/v1.0.0" target="_blank" rel="noopener">v1.0.0 Release</a>
+        <a href="https://github.com/MooPuu/Axis-Terrain-Lab/issues" target="_blank" rel="noopener">Report an Issue</a>
+        <a href="https://github.com/MooPuu/Axis-Terrain-Lab/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>
       </div>
     </div>
   </footer>
 
-  <!-- Lightbox / Screenshot switcher script -->
-  <script>
-    function setScreenshot(src, caption) {
-      const img = document.getElementById('mainScreenshot');
-      const cap = document.getElementById('screenshotCaption');
-      if (img && cap) {
-        img.src = src;
-        cap.innerHTML = '<strong>Screenshot:</strong> ' + caption;
-      }
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
