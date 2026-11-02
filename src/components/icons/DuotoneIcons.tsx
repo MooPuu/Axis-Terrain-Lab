@@ -12,6 +12,43 @@ export interface IconProps extends React.SVGProps<SVGSVGElement> {
  * Style: 1.5px - 2px crisp outer strokes with smooth rounded caps + 0.28 opacity secondary accent fills.
  */
 
+export const AxisTerrainLabLogo: React.FC<{ size?: number; className?: string }> = ({ size = 28, className = '' }) => (
+  <svg
+    width={size}
+    height={(size * 670) / 785}
+    viewBox="0 0 785 670"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <g transform="translate(-1422 -882)">
+      <path
+        d="M1422 993.669C1422 931.996 1472 882 1533.67 882L2095.33 882C2157 882 2207 931.996 2207 993.669L2207 1440.33C2207 1502 2157 1552 2095.33 1552L1533.67 1552C1472 1552 1422 1502 1422 1440.33Z"
+        fill="#0B3041"
+        fillRule="evenodd"
+      />
+      <path d="M1497 1382 1688.5 1052 1880 1382Z" fill="#156082" fillRule="evenodd" />
+      <path d="M1755 1382 1946.5 1052 2138 1382Z" fill="#156082" fillRule="evenodd" />
+      <path d="M1623 1423 1814.5 1011 2006 1423Z" fill="#FF0000" fillRule="evenodd" />
+      <path
+        d="M1787 1217 1842 1217 1910 1285 1910 1285 1842 1353 1787 1353 1719 1285 1719 1285Z"
+        fill="#0B3041"
+        fillRule="evenodd"
+      />
+      <path
+        d="M1792 1230 1837 1230 1892 1285 1892 1285 1837 1340 1792 1340 1737 1285 1737 1285Z"
+        fill="#FFFFFF"
+        fillRule="evenodd"
+      />
+      <path
+        d="M1794.5 1236 1834.5 1236 1883 1284.5 1883 1284.5 1834.5 1333 1794.5 1333 1746 1284.5 1746 1284.5Z"
+        fill="#0B3041"
+        fillRule="evenodd"
+      />
+    </g>
+  </svg>
+);
+
 export const MountainDuotone: React.FC<IconProps> = ({ size = 20, className = '', ...props }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} {...props}>
     {/* Secondary duotone fill */}

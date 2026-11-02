@@ -1,18 +1,15 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/Axis%20Tools%20Dark.png">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/Axis%20Tools%202.png">
-  <img alt="Axis Tools" src="docs/assets/Axis%20Tools%202.png" width="340" style="margin-bottom: 16px;" />
-</picture>
+<p align="center">
+  <img src="docs/assets/logo.svg" alt="Axis Terrain Lab Logo" width="160" />
+</p>
 
 # Axis Terrain Lab
 
 **Next-Gen GPU-Accelerated Procedural Terrain, Splatmap & Hydraulic Erosion Suite**
 
-[![Platform: Windows • Web](https://img.shields.io/badge/Platform-Windows%20%7C%20Web-0078D6?logo=windows&logoColor=white)](https://github.com/MooPuu/Axis-Terrain-Lab/releases/tag/v1.0.0)
+[![Platform: Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11%20(x64)-0078D6?logo=windows&logoColor=white)](https://github.com/MooPuu/Axis-Terrain-Lab/releases/tag/v1.0.0)
 [![Official Website](https://img.shields.io/badge/Website-moopuu.github.io%2FAxis--Terrain--Lab-10b981?logo=googlechrome&logoColor=white)](https://moopuu.github.io/Axis-Terrain-Lab/)
-[![Live Web Studio](https://img.shields.io/badge/Live%20Demo-Try%20In%20Browser-00d2ff?logo=webgl&logoColor=white)](https://moopuu.github.io/Axis-Terrain-Lab/app/)
 [![Built with: Rust](https://img.shields.io/badge/Backend-Rust-DEA584?logo=rust&logoColor=white)](https://www.rust-lang.org)
 [![Framework: Tauri v2](https://img.shields.io/badge/Framework-Tauri%20v2-24C8D8?logo=tauri&logoColor=white)](https://tauri.app)
 [![3D Engine: Three.js](https://img.shields.io/badge/3D%20Engine-Three.js-black?logo=three.js&logoColor=white)](https://threejs.org)
@@ -21,16 +18,44 @@
 [![Version: 1.0.0](https://img.shields.io/badge/Release-v1.0.0-success.svg)](https://github.com/MooPuu/Axis-Terrain-Lab/releases/tag/v1.0.0)
 
 <p align="center">
-  <a href="https://moopuu.github.io/Axis-Terrain-Lab/" target="_blank"><strong>🌐 Visit Official Website</strong></a> &nbsp;&bull;&nbsp;
-  <a href="https://moopuu.github.io/Axis-Terrain-Lab/app/" target="_blank"><strong>🎮 Launch Interactive Web Studio</strong></a>
+  <a href="https://moopuu.github.io/Axis-Terrain-Lab/" target="_blank"><strong>🌐 Visit Official Website &amp; Feature Showcase</strong></a> &nbsp;&bull;&nbsp;
+  <a href="https://github.com/MooPuu/Axis-Terrain-Lab/releases/tag/v1.0.0" target="_blank"><strong>📦 Download v1.0.0 for Windows</strong></a>
 </p>
 
-<p align="center">
-  <img src="docs/assets/logo.png" alt="Axis Terrain Lab Icon" width="128" />
-</p>
+*A blazingly fast, lightweight, and modern desktop application designed for game developers, 3D artists, and environment designers. Author 16-bit/32-bit heightmaps, simulate multi-pass hydraulic and thermal erosion, generate multi-channel packed splatmaps, and export production-ready packages for Godot Terrain3D and Unreal Engine 5.*
 
-*A blazingly fast, lightweight, and modern desktop application and web studio designed for game developers, 3D artists, and environment designers. Author 16-bit/32-bit heightmaps, simulate multi-pass hydraulic and thermal erosion, generate multi-channel packed splatmaps, and export production-ready packages for Godot Terrain3D and Unreal Engine 5.*
+</div>
 
+---
+
+## 📸 Screenshots
+
+<div align="center">
+  <p><strong>Real-time 3D Viewport with Hydraulic Shallow Water Erosion &amp; PBR Multi-Material Shading</strong></p>
+  <img src="docs/screenshots/overview.png" alt="Axis Terrain Lab - 3D Viewport & Hydraulic Erosion" width="1000" />
+</div>
+
+<br/>
+
+<div align="center">
+  <table border="0">
+    <tr>
+      <td width="50%" align="center">
+        <strong>Packed RGBA Splatmap &amp; Weightmasks</strong><br/>
+        <img src="docs/screenshots/splatmaps.png" alt="Splatmaps & Biome Masks" width="480" />
+      </td>
+      <td width="50%" align="center">
+        <strong>Game Engine Export (Godot 4 &amp; UE5)</strong><br/>
+        <img src="docs/screenshots/export-hub.png" alt="Engine Export Hub" width="480" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <strong>Topology &amp; Dynamic Wireframe Inspection Mode</strong><br/>
+        <img src="docs/screenshots/wireframe.png" alt="Wireframe Mode" width="700" />
+      </td>
+    </tr>
+  </table>
 </div>
 
 ---
@@ -87,12 +112,11 @@ Whether sculpting alpine horns, simulating millions of cubic meters of hydrodyna
 
 | Package | Description | Download | Size | SHA-256 Checksum |
 |---|---|---|---|---|
-| **Standalone Portable** | Zero installation. Run directly anywhere. | [**Axis-Terrain-Lab_1.0.0_Portable.exe**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_Portable.exe) | ~9.12 MB | `2076D7C530FF7D7EFC79432C55BDF03359054C5C30A231A82FD60D354DE2C3E2` |
-| **Setup Wizard (NSIS)** | Desktop & Start Menu shortcuts, clean uninstaller. | [**Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe) | ~2.07 MB | `4405735925931FCC5C23F026E77C09F16026D8CF380F50DE970BFB1822738D3A` |
-| **Enterprise Installer (MSI)** | WiX Windows Installer package. | [**Axis-Terrain-Lab_1.0.0.msi**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0.msi) | ~3.03 MB | `92DA8F75E86E46301DAC986C4928303238C53AF9DC7A90789961FB9255D50E1D` |
-| **Live Web Studio** | Run in your browser with WebGL2 acceleration. | [**Launch Web Edition**](https://moopuu.github.io/Axis-Terrain-Lab/app/) | Browser | — |
+| **Standalone Portable** | Zero installation. Run directly anywhere. | [**Axis-Terrain-Lab_1.0.0_Portable.exe**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_Portable.exe) | ~9.12 MB | `64085396EE9BFCE1BDC825730E80123C28D42D110C77F424B55A3DC78B3DA86F` |
+| **Setup Wizard (NSIS)** | Desktop & Start Menu shortcuts, clean uninstaller. | [**Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0_NSIS_Setup.exe) | ~2.07 MB | `BFE7DA4E12C6D0FEFF6ACE97BDDB370DDF7A81613AD6F554A4FEECE6FFA752E2` |
+| **Enterprise Installer (MSI)** | WiX Windows Installer package. | [**Axis-Terrain-Lab_1.0.0.msi**](https://github.com/MooPuu/Axis-Terrain-Lab/releases/download/v1.0.0/Axis-Terrain-Lab_1.0.0.msi) | ~3.00 MB | `0161AA3FE34AEC21E40C118E28B09332433DAA0297E9CBB978CFFEC0704E626F` |
 
-> **System Requirements:** Windows 10/11 (64-bit) with WebView2 &bull; Modern web browser with WebGL2 (Chrome, Edge, Firefox, Safari).
+> **System Requirements:** Windows 10/11 (64-bit) with Microsoft Edge WebView2 runtime (pre-installed on modern Windows 10 & 11).
 
 ---
 
@@ -130,7 +154,7 @@ cd Axis-Terrain-Lab
 # 2. Install dependencies
 npm install
 
-# 3. Launch live web studio preview
+# 3. Launch local UI preview
 npm run dev
 
 # 4. Or launch native desktop Tauri application
@@ -139,7 +163,7 @@ npx @tauri-apps/cli dev
 
 ### Production Build
 ```bash
-# Build web app
+# Build frontend
 npm run build
 
 # Compile native Windows executables & bundles (Portable, NSIS, MSI)

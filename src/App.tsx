@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, Fragment } from 'react';
+import React, { useState, useMemo, useCallback, useEffect, Fragment } from 'react';
 import {
   Tab,
   TabGroup,
@@ -30,6 +30,7 @@ import type {
 import { TerrainViewport } from './components/viewport/TerrainViewport';
 import type { ViewportMode } from './components/viewport/TerrainViewport';
 import {
+  AxisTerrainLabLogo,
   MountainDuotone,
   WaterDropDuotone,
   FlameDuotone,
@@ -162,6 +163,22 @@ export const App: React.FC = () => {
 
   // Active Tab Index (0: erosion, 1: splatmap, 2: export)
   const [selectedTabIndex, setSelectedTabIndex] = useState<number>(0);
+
+  // Read URL query params on load for direct view/tab linking
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab === 'splatmap') setSelectedTabIndex(1);
+      else if (tab === 'export') setSelectedTabIndex(2);
+      const view = params.get('view');
+      if (view && ['textured', 'height_heatmap', 'slope_overlay', 'splatmap_rgb', 'wireframe'].includes(view)) {
+        setViewportMode(view as ViewportMode);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   // Splatmap Mask Settings
   const [slopeMin, setSlopeMin] = useState<number>(25);
@@ -298,8 +315,8 @@ export const App: React.FC = () => {
       <header className="h-14 bg-[#10141d] border-b border-[#1e2636] flex items-center justify-between px-4 z-20 shrink-0">
         {/* App Branding */}
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00d2ff]/20 to-[#8b5cf6]/20 border border-[#00d2ff]/40 flex items-center justify-center text-[#00d2ff] shadow-[0_0_12px_rgba(0,210,255,0.2)]">
-            <MountainDuotone size={20} />
+          <div className="w-9 h-9 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_12px_rgba(0,210,255,0.25)] border border-[#1b2333]">
+            <AxisTerrainLabLogo size={36} />
           </div>
           <div>
             <div className="flex items-center space-x-2">
